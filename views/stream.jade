@@ -1,0 +1,6 @@
+section.user-list
+  header #{friend.name}
+  ol
+    each track in friend.tracks
+      li
+        a(href='#{track.url}') #{track.name}

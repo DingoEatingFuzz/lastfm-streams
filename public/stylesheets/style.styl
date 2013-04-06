@@ -1,5 +1,68 @@
+animate()
+  -webkit-transition arguments
+  transition arguments
+
+default-animate()
+  animate .5s all ease-in
+
+shadow()
+  box-shadow arguments
+  -webkit-box-shadow arguments
+  -moz-box-shadow arguments
+
+gradient()
+  background-image -webkit-linear-gradient(arguments)
+  background-image    -moz-linear-gradient(arguments)
+  background-image      -o-linear-gradient(arguments)
+  background-image         linear-gradient(arguments)
+
+
+html, body
+  padding 0
+  margin  0
+
+h1
+  text-align center
+  border-bottom 2px solid #DDD
+  color #CCC
+  padding 20px 0
+  margin 0
+  default-animate()
+  background: #FFF
+  &:hover
+    color #FFF
+    text-shadow 0 -2px #900
+    background #C00
+
 body
-  padding: 50px
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
+  font 14px "Lucida Grande", Helvetica, Arial, sans-serif
+
 a
-  color: #00B7FF
+  color #00B7FF
+
+.container
+  padding .5em
+
+.user-list
+  width 300px
+  display inline-block
+  margin .5em
+  default-animate()
+  &:hover
+    shadow 0 0 .5em rgba(0,0,0,.5)
+  header
+    gradient top, #C00, #A00 
+    color #FFF
+    padding .5em
+    font-weight bold
+    border 1px solid #900
+  ol
+    color #AAA
+    margin 0
+    border 1px solid #CCC
+    padding 0
+    list-style inside decimal
+    li
+      padding 1em .5em
+      &:nth-child(odd)
+        background #EEF

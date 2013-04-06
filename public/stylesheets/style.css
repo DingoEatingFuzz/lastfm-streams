@@ -1,0 +1,64 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+h1 {
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+  color: #ccc;
+  padding: 20px 0;
+  margin: 0;
+  -webkit-transition: 0.5s all ease-in;
+  transition: 0.5s all ease-in;
+  background: #fff;
+}
+h1:hover {
+  color: #fff;
+  text-shadow: 0 -2px #900;
+  background: #c00;
+}
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+.container {
+  padding: 0.5em;
+}
+.user-list {
+  width: 300px;
+  display: inline-block;
+  margin: 0.5em;
+  -webkit-transition: 0.5s all ease-in;
+  transition: 0.5s all ease-in;
+}
+.user-list:hover {
+  box-shadow: 0 0 0.5em rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 0 0.5em rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 0 0.5em rgba(0,0,0,0.5);
+}
+.user-list header {
+  background-image: -webkit-linear-gradient(top, #c00, #a00);
+  background-image: -moz-linear-gradient(top, #c00, #a00);
+  background-image: -o-linear-gradient(top, #c00, #a00);
+  background-image: linear-gradient(top, #c00, #a00);
+  color: #fff;
+  padding: 0.5em;
+  font-weight: bold;
+  border: 1px solid #900;
+}
+.user-list ol {
+  color: #aaa;
+  margin: 0;
+  border: 1px solid #ccc;
+  padding: 0;
+  list-style: inside decimal;
+}
+.user-list ol li {
+  padding: 1em 0.5em;
+}
+.user-list ol li:nth-child(odd) {
+  background: #eef;
+}
