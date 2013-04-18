@@ -22,11 +22,13 @@ html, body
   margin  0
 
 h1
+  margin 0
+  width 100%
+  position fixed
   text-align center
   border-bottom 2px solid #DDD
   color #CCC
   padding 20px 0
-  margin 0
   default-animate()
   background: #FFF
   &:hover
@@ -42,11 +44,14 @@ a
 
 .container
   padding .5em
+  padding-top 100px
+  white-space nowrap
 
 .user-list
   width 300px
   display inline-block
   margin .5em
+  vertical-align top
   default-animate()
   &:hover
     shadow 0 0 .5em rgba(0,0,0,.5)
