@@ -38,8 +38,4 @@ server.listen(app.get('port'), function (){
 
 var sio = io.listen(server);
 
-sio.sockets.on('connection', function (socket) {
-  console.log('Socket Connection');
-});
-
 app.get('/', routes.index(sio));
