@@ -36,6 +36,7 @@ a {
   display: inline-block;
   margin: 0.5em;
   vertical-align: top;
+  white-space: normal;
   -webkit-transition: 0.5s all ease-in;
   transition: 0.5s all ease-in;
 }
