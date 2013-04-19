@@ -1,4 +1,5 @@
 var LastFmNode = require('lastfm').LastFmNode
+  , LastFmMonitor = require('../controllers/lastfm-monitor').LastFmMonitor
   , config = require('../config')
   , moment = require('moment');
 
@@ -30,7 +31,7 @@ exports.index = function(io) {
 
   });
 
-  lastfm.request('user.getFriends', {
+/*  lastfm.request('user.getFriends', {
     user: 'DingoEatingFuzz',
     handlers: {
       success: function(data) {
@@ -40,10 +41,10 @@ exports.index = function(io) {
         console.log('getFriends error: ', error.message);
       }
     }
-  });
+  });*/
 
   lastfm.request('user.getInfo', {
-    user: 'DingoEatingFuzz',
+    user: 'dubsaru',
     handlers: {
       success: function(data) {
         users = users.concat(data.user);
@@ -56,6 +57,18 @@ exports.index = function(io) {
   });
 
   return function(req, res) {
+    var monitor = new LastFmMonitor({
+      username: 'dubsaru',
+      interval:  50000
+    });
+    monitor
+      .enter(function(user) {
+        console.log('New user: ', user.name);
+      })
+      .leave(function(user) {
+        console.log('End user: ', user.name);
+      })
+      .start().update();
     buildLists(users, function(list) {
       res.render('index', viewObj(list));
     });
@@ -93,6 +106,7 @@ function buildLists(users, cb) {
   var completed = 0,
       lists = [];
   users.forEach(function(user) {
+    lastfm.request
     lastfm.request('user.getRecentTracks', {
       user: user.name,
       limit: 10,
