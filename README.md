@@ -1,15 +1,12 @@
-Lastfm Streams
-============
+# Lastfm Streams
 
 See what music your friends are listening to.
 
-Overview
-=======
+# Overview
 
 An express site that gives you a one-glance no-clicks dashboard of your friends scrobbling on lastfm. It utilizes socket.io for maximal trendiness. 
 
-Roadmap
-=======
+# Roadmap
 
 Still a work in progress; here's a checklist.
 - Filter out friends that aren't currently scrobbling.
@@ -23,7 +20,23 @@ Still a work in progress; here's a checklist.
 - Parameterize the user instead of just using my account
 - Apply polish and stuff
 
-Check it out
-=========
+# Check it out
 
 Not hosted yet :( 
+
+# Behavior Details
+
+## On load
+- Show only friends that have scrobbles in the last hour
+- Show all the tracks they have listened to in the last hour
+- Show their current track
+
+## On nowPlaying
+- Push this new track into the play list
+
+## On scrobble
+- Push this new track into the play list if it isn't already there
+
+## Every minute
+- Add streams for newly active friends
+- Remove streams for stale friends (been an hour since a scrobble)
