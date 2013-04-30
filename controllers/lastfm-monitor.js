@@ -12,7 +12,7 @@ var lastfm = new LastFmNode({
 exports.LastFmMonitor = function(opts) {
 
   var options = {};
-  var enter, leave, interval, staleAt;
+  var enter, exit, interval, staleAt;
   var updateInterval;
   var users = [];
 
@@ -35,20 +35,24 @@ exports.LastFmMonitor = function(opts) {
   this.username = setter.call(this, 'username');
   this.interval = setter.call(this, 'interval');
   this.staleAt  = setter.call(this, 'staleAt');
+  this.users    = users;
 
   this.enter = function(handler) {
     options.enter = handler;
     return this;
   };
 
-  this.leave = function(handler) {
-    options.leave = handler;
+  this.exit = function(handler) {
+    options.exit = handler;
     return this;
   };
 
   this.start = function() {
-    console.log('Monitor starting...\n');
-    updateInterval = setInterval(this.update, options.interval);
+    console.log('Monitor starting...');
+    var self = this;
+    updateInterval = setInterval(function() {
+      self.update()
+    }, options.interval);
     return this;
   };
 
@@ -58,7 +62,8 @@ exports.LastFmMonitor = function(opts) {
   };
 
   this.update = function() {
-    console.log('Updating...\n');
+    var self = this;
+    console.log('Updating...');
     var newUsers = [];
 
     lastfm.request('user.getFriends', {
@@ -67,18 +72,14 @@ exports.LastFmMonitor = function(opts) {
       handlers: {
         success: function(data) {
           var newUsers = activeUsers(data.friends.user);
-          compareAndUpdate(newUsers);
+          compareAndUpdate(self, newUsers);
         },
         error: function(error) {
           console.log('Problem getting friends in the monitor: ', error.message);
         }
       }
     });
-    // get active users
-    // compare new list with existing list
-    // in A not in B: call leave on it
-    // in B not in A: call enter on it
-    // set users to new list
+
     return this;
   };
 
@@ -106,12 +107,38 @@ exports.LastFmMonitor = function(opts) {
     return newUsers;
   }
 
-  function compareAndUpdate(newUsers) {
-    console.log('New Users...');
-    newUsers.forEach(function(user) { console.log(user.name); });
-    var left = [], entered = [];
+  function compareAndUpdate(manager, newUsers) {
 
-    users = newUsers;
+    var entered = [], exited = [];
+    newUsers.forEach(function(user) {
+      var inArray = false;
+      for (var i = 0, len = manager.users.length; i < len; ++i) {
+        if (user.name === manager.users[i].name) {
+          inArray = true;
+          break;
+        }
+      }
+      if (!inArray) entered.push(user);
+    });
+    manager.users.forEach(function(user) {
+      var inArray = false;
+      for (var i = newUsers.length - 1; i >= 0; i--) {
+        if (user.name === newUsers[i].name) {
+          inArray = true;
+        }
+      }
+      if (!inArray) exited.push(user);
+    });
+
+    entered.forEach(function(user) {
+      options.enter(user);
+    });
+
+    exited.forEach(function(user) {
+      options.exit(user);
+    });
+
+    manager.users = newUsers;
   }
 
 };

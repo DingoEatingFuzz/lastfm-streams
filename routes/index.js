@@ -59,13 +59,13 @@ exports.index = function(io) {
   return function(req, res) {
     var monitor = new LastFmMonitor({
       username: 'dubsaru',
-      interval:  50000
+      interval:  5000
     });
     monitor
       .enter(function(user) {
         console.log('New user: ', user.name);
       })
-      .leave(function(user) {
+      .exit(function(user) {
         console.log('End user: ', user.name);
       })
       .start().update();
@@ -77,7 +77,6 @@ exports.index = function(io) {
 };
 
 function watchTracksFor(users, cb) {
-  console.log(users);
   users.forEach(function(user) {
     var watch = lastfm.stream(user.name);
     watch.on('nowPlaying', function(track) {

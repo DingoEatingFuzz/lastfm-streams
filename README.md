@@ -19,6 +19,7 @@ Still a work in progress; here's a checklist.
 - Allow dragging and dropping lists for custom reordering
 - Parameterize the user instead of just using my account
 - Apply polish and stuff
+- Make track height proportional to track length
 
 # Check it out
 
